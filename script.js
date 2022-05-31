@@ -43,6 +43,8 @@ const prevSlide=()=>{
         console.log(slides.style.transform);
 }
 
+setInterval(nextSlide,5000)
+
 const slides=document.querySelector(".slides")
 const slides2=document.querySelectorAll(".slides>img");
 
