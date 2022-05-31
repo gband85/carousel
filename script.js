@@ -5,9 +5,42 @@ const selectCircle=()=>{
         circles.forEach(function(circle){
     
             if (circle.getAttribute("data-index")==current) {
-                circle.style.backgroundColor="rgb(210,210,210"
+                circle.style.backgroundColor="rgb(210,210,210)"
             }
-        })
+        
+})
+}
+const nextSlide=()=>{
+    console.log(`current before: ${current}`)
+    selectCircle()
+if (current==lastIndex) {
+    current=0;
+    slides.style.transform=`translateX(${0}px)`;
+    slides.setAttribute("data-position",0);
+} 
+else {
+    current++
+        slides.style.transform=`translateX(${parseInt(slides.getAttribute("data-position"))- 480}px)`;
+    slides.setAttribute("data-position",parseInt(slides.getAttribute("data-position"))-480);
+}
+selectCircle();
+}
+
+const prevSlide=()=>{
+    // console.log(current);
+    if (current==0) {
+        current=lastIndex;
+        slides.style.transform=`translateX(${-1*(lastIndex*480)}px)`;
+        slides.setAttribute("data-position",-1*(lastIndex*480));
+        } 
+        else {
+            current--;
+            slides.style.transform=`translateX(${parseInt(slides.getAttribute("data-position"))+ 480}px)`;
+        slides.setAttribute("data-position",parseInt(slides.getAttribute("data-position"))+480);
+        }
+        selectCircle();
+        
+        console.log(slides.style.transform);
 }
 
 const slides=document.querySelector(".slides")
@@ -32,34 +65,9 @@ let lastIndex=slides2.length-1;
 // slides.style.transform=`translateX(${-1*(480)}px)`
 document.querySelector(".btn-prev").addEventListener("click",function(){
     // console.log(slides.style.transform);
-    // console.log(current);
-if (current==0) {
-current=lastIndex;
-slides.style.transform=`translateX(${-1*(lastIndex*480)}px)`;
-slides.setAttribute("data-position",-1*(lastIndex*480));
-} 
-else {
-    current--;
-    slides.style.transform=`translateX(${parseInt(slides.getAttribute("data-position"))+ 480}px)`;
-slides.setAttribute("data-position",parseInt(slides.getAttribute("data-position"))+480);
-}
-selectCircle();
-
-console.log(slides.style.transform);
+prevSlide();
 })
 
 document.querySelector(".btn-next").addEventListener("click",function(){
-    console.log(`current before: ${current}`)
-    selectCircle()
-if (current==lastIndex) {
-    current=0;
-    slides.style.transform=`translateX(${0}px)`;
-    slides.setAttribute("data-position",0);
-} 
-else {
-    current++
-        slides.style.transform=`translateX(${parseInt(slides.getAttribute("data-position"))- 480}px)`;
-    slides.setAttribute("data-position",parseInt(slides.getAttribute("data-position"))-480);
-}
-selectCircle();
+nextSlide();
     })
